@@ -16,13 +16,13 @@ for appendix in "abc":
 
 print('Now merging...')
 
-x = [a for a in sorted(os.listdir()) if a.endswith(".pdf")]
+x = [a for a in sorted(os.listdir()) if a.endswith('.pdf')]
 merger = PdfFileMerger()
 
 for pdf in x:
     merger.append(open(pdf, 'rb'))
 
-with open("sweigert.pdf", "wb") as fout:
+with open('sweigert.pdf;, 'wb') as fout:
     merger.write(fout)
 
 for f in glob.glob('automate*.pdf'):
