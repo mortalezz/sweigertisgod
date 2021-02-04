@@ -1,2 +1,4 @@
 # sweigertisgod
-Short script for download Automate Boring Stuff with Python by Al Sweigert
+Short script that i wrote out of curioisty after finishing chapter 2 of aforementioned book.
+
+
