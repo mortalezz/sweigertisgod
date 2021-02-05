@@ -17,18 +17,15 @@ settings = {
     "version": 2,
 }
 
-prefs = {"printing.print_preview_sticky_settings.appState": json.dumps(settings)}
+prefs = {
+    "printing.print_preview_sticky_settings.appState": json.dumps(settings),
+    "download.default_directory": r"C:\sweigertisgod",
+    "download.prompt_for_download": False,
+    "download.directory_upgrade": True,
+    "safebrowsing.enabled": True,
+}
 chrome_options.add_experimental_option("prefs", prefs)
 chrome_options.add_argument("--kiosk-printing")
-chrome_options.add_experimental_option(
-    "prefs",
-    {
-        "download.default_directory": r"C:\sweigertisgod",
-        "download.prompt_for_download": False,
-        "download.directory_upgrade": True,
-        "safebrowsing.enabled": True,
-    },
-)
 
 browser = webdriver.Chrome(r"chromedriver", options=chrome_options)
 browser.get("https://automatetheboringstuff.com/2e/chapter0/")
