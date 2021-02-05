@@ -17,7 +17,7 @@ for i in range(24):
         xpath = "/html/body/div[3]/div[1]/center/a[3]/img"
     
     browser.execute_script('window.print();')
-    if i == 24:
+    if i == 23:
         break
     else:
         nextButton = browser.find_element_by_xpath(xpath)
@@ -28,14 +28,14 @@ browser.close()
 
 print('Now merging...')
 
-x = [a for a in sorted(os.listdir()) if a.endswith('.pdf')]
-merger = PdfFileMerger()
+#x = [a for a in sorted(os.listdir()) if a.endswith('.pdf')]
+#merger = PdfFileMerger()
 
-for pdf in x:
-    merger.append(open(pdf, 'rb'))
+#for pdf in x:
+#    merger.append(open(pdf, 'rb'))
 
-with open('sweigert.pdf;, 'wb') as fout:
-    merger.write(fout)
+#with open('sweigert.pdf;, 'wb') as fout:
+#    merger.write(fout)
 
-for f in glob.glob('automate*.pdf'):
-    os.remove(f)
+#for f in glob.glob('automate*.pdf'):
+#    os.remove(f)
