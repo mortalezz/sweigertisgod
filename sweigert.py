@@ -1,12 +1,35 @@
-import os,glob,json
+import os, glob, json
 from PyPDF2 import PdfFileMerger
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 chrome_options = webdriver.ChromeOptions()
-settings = {"recentDestinations": [{"id": "Save as PDF", "origin": "local", "account": ""}], "selectedDestinationId": "Save as PDF", "version": 2}
-prefs = {'printing.print_preview_sticky_settings.appState': json.dumps(settings)}
-chrome_options.add_experimental_option('prefs', prefs)
-chrome_options.add_argument('--kiosk-printing')
+
+settings = {
+    "recentDestinations": [
+        {
+            "id": "Save as PDF",
+            "origin": "local",
+            "account": "",
+        }
+    ],
+    "selectedDestinationId": "Save as PDF",
+    "version": 2,
+}
+
+prefs = {"printing.print_preview_sticky_settings.appState": json.dumps(settings)}
+chrome_options.add_experimental_option("prefs", prefs)
+chrome_options.add_argument("--kiosk-printing")
+chrome_options.add_experimental_option(
+    "prefs",
+    {
+        "download.default_directory": r"C:\sweigertisgod",
+        "download.prompt_for_download": False,
+        "download.directory_upgrade": True,
+        "safebrowsing.enabled": True,
+    },
+)
+
 browser = webdriver.Chrome(r"chromedriver", options=chrome_options)
 browser.get("https://automatetheboringstuff.com/2e/chapter0/")
 
@@ -15,8 +38,8 @@ for i in range(24):
         xpath = "/html/body/div[3]/div[1]/center/a[2]/img"
     else:
         xpath = "/html/body/div[3]/div[1]/center/a[3]/img"
-    
-    browser.execute_script('window.print();')
+
+    browser.execute_script("window.print();")
     if i == 23:
         break
     else:
@@ -26,16 +49,16 @@ for i in range(24):
 browser.close()
 
 
-print('Now merging...')
+print("Now merging...")
 
-#x = [a for a in sorted(os.listdir()) if a.endswith('.pdf')]
-#merger = PdfFileMerger()
+# x = [a for a in sorted(os.listdir()) if a.endswith('.pdf')]
+# merger = PdfFileMerger()
 
-#for pdf in x:
+# for pdf in x:
 #    merger.append(open(pdf, 'rb'))
 
-#with open('sweigert.pdf;, 'wb') as fout:
+# with open('sweigert.pdf;, 'wb') as fout:
 #    merger.write(fout)
 
-#for f in glob.glob('automate*.pdf'):
+# for f in glob.glob('automate*.pdf'):
 #    os.remove(f)
