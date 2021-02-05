@@ -1,18 +1,30 @@
-import os,weasyprint,glob
+import os,glob,json
 from PyPDF2 import PdfFileMerger
+from selenium import webdriver
 
-for num in range(21):
-    pdf = weasyprint.HTML('https://automatetheboringstuff.com/2e/chapter%s/' % (num)).write_pdf()
-    open('automate%s.pdf' % (num), 'wb').write(pdf)
-    if num !=0:
-        print('Page %s of 20 complete.' % (num))
+chrome_options = webdriver.ChromeOptions()
+settings = {"recentDestinations": [{"id": "Save as PDF", "origin": "local", "account": ""}], "selectedDestinationId": "Save as PDF", "version": 2}
+prefs = {'printing.print_preview_sticky_settings.appState': json.dumps(settings)}
+chrome_options.add_experimental_option('prefs', prefs)
+chrome_options.add_argument('--kiosk-printing')
+browser = webdriver.Chrome(r"chromedriver", options=chrome_options)
+browser.get("https://automatetheboringstuff.com/2e/chapter0/")
 
-count = 1
-for appendix in "abc":
-    pdf = weasyprint.HTML('https://automatetheboringstuff.com/2e/appendix%s/' % (appendix)).write_pdf()
-    open('automate%s.pdf' % (appendix), 'wb').write(pdf)
-    print('Appendix %s of 3 complete' % (count))
-    count = count + 1
+for i in range(24):
+    if i == 0:
+        xpath = "/html/body/div[3]/div[1]/center/a[2]/img"
+    else:
+        xpath = "/html/body/div[3]/div[1]/center/a[3]/img"
+    
+    browser.execute_script('window.print();')
+    if i == 24:
+        break
+    else:
+        nextButton = browser.find_element_by_xpath(xpath)
+        nextButton.click()
+
+browser.close()
+
 
 print('Now merging...')
 
