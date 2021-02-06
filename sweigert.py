@@ -21,7 +21,7 @@ prefs = {
 
 chrome_options.add_experimental_option("prefs", prefs)
 chrome_options.add_argument("--kiosk-printing")
-# chrome_options.add_argument('--headless')
+chrome_options.add_argument("--headless")
 
 browser = webdriver.Chrome(r"chromedriver", options=chrome_options)
 browser.get("https://automatetheboringstuff.com/2e/chapter0/")
