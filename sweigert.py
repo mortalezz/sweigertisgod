@@ -5,27 +5,23 @@ from selenium.webdriver.chrome.options import Options
 
 chrome_options = webdriver.ChromeOptions()
 
-settings = {
-    "recentDestinations": [
-        {
-            "id": "Save as PDF",
-            "origin": "local",
-            "account": "",
-        }
-    ],
+prefs = {
+    "recentDestinations": [{"id": "Save as PDF", "origin": "local", "account": ""}],
     "selectedDestinationId": "Save as PDF",
     "version": 2,
+    "isHeaderFooterEnabled": False,
 }
 
+path = os.getcwd()
+
 prefs = {
-    "printing.print_preview_sticky_settings.appState": json.dumps(settings),
-    "download.default_directory": r"C:\sweigertisgod",
-    "download.prompt_for_download": False,
-    "download.directory_upgrade": True,
-    "safebrowsing.enabled": True,
+    "printing.print_preview_sticky_settings.appState": json.dumps(prefs),
+    "savefile.default_directory": "%s" % path,
 }
+
 chrome_options.add_experimental_option("prefs", prefs)
 chrome_options.add_argument("--kiosk-printing")
+# chrome_options.add_argument('--headless')
 
 browser = webdriver.Chrome(r"chromedriver", options=chrome_options)
 browser.get("https://automatetheboringstuff.com/2e/chapter0/")
