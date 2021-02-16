@@ -1,7 +1,6 @@
 import os, json
 from PyPDF2 import PdfFileMerger
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from natsort import natsorted
 from natsort import ns
 from glob import glob
@@ -13,9 +12,25 @@ prefs = {
     "selectedDestinationId": "Save as PDF",
     "version": 2,
     "isHeaderFooterEnabled": False,
+    "mediaSize": {
+        "height_microns": 210000,
+        "name": "ISO_A5",
+        "width_microns": 148000,
+        "custom_display_name": "A5",
+    },
+    "customMargins": {},
+    "marginsType": 2,
+    "scaling": 175,
+    "scalingType": 3,
+    "scalingTypePdf": 3,
+    "isCssBackgroundEnabled": True,
 }
 
 path = os.getcwd()
+
+mobile_emulation = {"deviceName": "Nexus 5"}
+chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
+chrome_options.add_argument("--enable-print-browser")
 
 prefs = {
     "printing.print_preview_sticky_settings.appState": json.dumps(prefs),
